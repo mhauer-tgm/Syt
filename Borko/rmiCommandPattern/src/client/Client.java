@@ -14,18 +14,20 @@ import server.commands.RegisterCommand;
 public class Client {
 
 	public static void main(String[] args) {
+		int digits = -1;
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
 		try {
 			// Einlesen der gewünschten Anzahl an Nachkommastellen
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("Willkommen! Wie viele Kommastellen von e wollen Sie berechnen?");
+			do{
+			System.out.println("Willkommen! Wie viele Kommastellen von e wollen Sie berechnen? Bitte bemühen sie sich um eine positive, ganzzahlige Zahl.");
 			String input = scanner.nextLine();
-			int digits = Integer.parseInt(input);
-
+			digits = Integer.parseInt(input);
+			} while (digits < 0);
+			
 			Registry registry = LocateRegistry.getRegistry(1234);
-
 			DoSomethingService uRemoteObject = (DoSomethingService) registry.lookup("Service");
 			System.out.println("Service found");
 
@@ -40,11 +42,9 @@ public class Client {
 			
 		} catch (RemoteException re) {
 			System.err.println("Service not found?" + " Check your RMI-Registry!");
-			re.printStackTrace();
 			System.exit(1);
 		} catch (Exception e) {
 			System.err.println("Service exception:");
-			e.printStackTrace();
 			System.exit(1);
 		}
 	}

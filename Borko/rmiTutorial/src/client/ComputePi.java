@@ -37,7 +37,7 @@ import java.math.BigDecimal;
 import compute.Compute;
 
 public class ComputePi {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
@@ -49,7 +49,7 @@ public class ComputePi {
             BigDecimal pi = comp.executeTask(task);
             System.out.println(pi);
         } catch (Exception e) {
-            System.err.println("ComputePi exception:");
+            System.err.println("ComputePi exception. Überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.");
             e.printStackTrace();
         }
     }    
