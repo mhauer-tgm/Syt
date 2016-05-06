@@ -1,0 +1,16 @@
+
+#ifndef __ECHO_CALLBACK_IDL__
+#define __ECHO_CALLBACK__IDL__
+module cb {
+	interface CallBack {
+		void call_back(in string msg);
+	};
+	interface server {
+		void one_time(in CallBack cb, in string msg);
+		
+		void register(in CallBack cb, in string msg, in unsigned short period_scs);
+		
+		void shutdown();
+	};
+};
+#endif
