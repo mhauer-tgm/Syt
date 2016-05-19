@@ -1,0 +1,15 @@
+#ifndef __calculator_IDL__
+#define __calculator_IDL__
+module calc {
+	interface Calculator {
+		exception DivideZeroException{
+			string reason;
+		};
+
+		long mul(in long a,in long b);
+		long sub(in long a,in long b);
+		long add(in long a,in long b);
+		double div(in long a,in long b) raises(DivideZeroException);
+	};
+};
+#endif  // __calculator_IDL__
