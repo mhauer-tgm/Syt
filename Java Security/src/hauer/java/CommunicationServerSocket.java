@@ -59,11 +59,15 @@ public class CommunicationServerSocket{
     public  void SocketGet(){
         try {
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println("SS : "+inputLine);
-                msg = inputLine;
-                System.out.println("msg sent " +msg);
-            }
+            //while ((inputLine = in.readLine()) != null) {
+            //    System.out.println("SS : "+inputLine);
+            //    msg = inputLine;
+            //    System.out.println("msg received " +msg);
+            //}
+
+            inputLine = in.readLine();
+            msg = inputLine;
+            System.out.println("msg received " +msg);
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
                     + port + " or listening for a connection");
