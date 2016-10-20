@@ -46,20 +46,14 @@ public class Service {
 
             CommunicationServerSocket css = new CommunicationServerSocket(4444);
 
-            //empfange sym key
-            System.out.println("Empfange sym key");
             css.SocketGet();
-            System.out.println("nach dem socket Get");
             byte[] decryptedSymKey = new byte[1];
 
-            System.out.println("Vor der while wait");
             boolean wait = true;
             while(wait) {
                 if(css.getMsg() == null){
-                    System.out.println("Diese css.getMessge is null");
                     wait = true;
                 } else {
-                    System.out.println("Diese css.getMessge is not null");
                     //byte[] encrypted = css.getMsg().getBytes();
                     byte[] encrypted = toByteArray(css.getMsg());
                     Cipher cipher = Cipher.getInstance("RSA");
@@ -73,7 +67,6 @@ public class Service {
                 }
             }
 
-            //Nachricht senden
             SecretKeySpec skeySpec = new SecretKeySpec(decryptedSymKey,"DES");
             Cipher Textcipher = Cipher.getInstance("DES");
             Textcipher.init(Cipher.ENCRYPT_MODE, skeySpec);
@@ -84,8 +77,6 @@ public class Service {
             System.out.println("Textencrypted : "+toHexString(encrypted));
 
             css.SocketSend(toHexString(encrypted));
-
-            css.Close();
 
             // byte[] encrypted = toByteArray(new CommunicationServerSocket(4444).getMsg());
 

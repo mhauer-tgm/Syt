@@ -20,35 +20,27 @@ import java.io.*;
 public class CommunicationServerSocket{
     static int port;
     static String msg;
-    ServerSocket serverSocket;
-    Socket clientSocket;
-    PrintWriter out;
-    BufferedReader in;
 
     public String getMsg(){
         return msg;
     }
 
     public CommunicationServerSocket(int port){
-
         this.port=port;
-
-        try {
-            serverSocket = new ServerSocket(port);
-            clientSocket = serverSocket.accept();
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        }catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
-    public  void SocketSend(String msgsend){
+    public static void SocketSend(String msgsend){
         System.out.println("msgsend : " + msgsend);
-        try  {
-            System.out.println("vor die out.println");
+        try (
+                ServerSocket serverSocket =
+                        new ServerSocket(port);
+                Socket clientSocket = serverSocket.accept();
+                PrintWriter out =
+                        new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
+        ) {
             out.println(msgsend);
-            System.out.println("vor die flush");
             out.flush();
             System.out.println("msgsent already : " + msgsend);
         }catch (Exception e){
@@ -56,29 +48,25 @@ public class CommunicationServerSocket{
         }
     }
 
-    public  void SocketGet(){
-        try {
+    public static void SocketGet(){
+        try (
+                ServerSocket serverSocket =
+                        new ServerSocket(port);
+                Socket clientSocket = serverSocket.accept();
+                PrintWriter out =
+                        new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
+        ) {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("SS : "+inputLine);
                 msg = inputLine;
-                System.out.println("msg sent " +msg);
             }
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
                     + port + " or listening for a connection");
             System.out.println(e.getMessage());
-        }
-    }
-    public void Close() {
-        try {
-            serverSocket.close();
-            clientSocket.close();
-            out.close();
-            in.close();
-            System.out.println("Alles Closed");
-        }catch(Exception e) {
-            e.printStackTrace();
         }
     }
 }
