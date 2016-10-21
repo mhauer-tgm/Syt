@@ -52,6 +52,7 @@ public class Service {
             System.out.println("nach dem socket Get");
             byte[] decryptedSymKey = new byte[1];
 
+            //Entschlüsseln des sym keys
             System.out.println("Vor der while wait");
             boolean wait = true;
             while(wait) {

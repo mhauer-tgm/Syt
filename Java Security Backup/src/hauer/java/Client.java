@@ -106,9 +106,9 @@ public class Client {
                 }
             }
 
-            cs.SocketGet();
+            cs.Close();
         }catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
