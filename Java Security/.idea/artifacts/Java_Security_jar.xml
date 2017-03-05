@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Java Security:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Java_Security_jar</output-path>
-    <root id="archive" name="Java Security.jar">
-      <element id="module-output" name="Java Security" />
-    </root>
-  </artifact>
-</component>
